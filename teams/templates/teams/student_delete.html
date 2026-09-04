@@ -1,0 +1,40 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Delete Student</title>
+    <link rel="stylesheet" href="{% static 'teams/style.css' %}">
+</head>
+
+<body>
+
+<div class="container">
+
+    <h1>Delete Student</h1>
+
+    <p>
+        Are you sure you want to delete
+        <strong>
+            {{ student.first_name }}
+            {{ student.last_name }}
+        </strong>?
+    </p>
+
+    <form method="post">
+        {% csrf_token %}
+
+        <button type="submit">
+            Yes, Delete
+        </button>
+
+        <a class="button"
+           href="{% url 'team_detail' team.id %}">
+            Cancel
+        </a>
+    </form>
+
+</div>
+
+</body>
+</html>

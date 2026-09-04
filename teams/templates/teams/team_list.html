@@ -1,0 +1,38 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Robotics Teams</title>
+    <link rel="stylesheet" href="{% static 'teams/style.css' %}">
+</head>
+
+<body>
+
+<div class="container">
+
+    <h1>Robotics Teams</h1>
+
+    {% for team in teams %}
+
+        <h2>
+            <a href="{% url 'team_detail' team.id %}">
+                {{ team.team_number }} - {{ team.team_name }}
+            </a>
+        </h2>
+
+        <p>
+            Program: {{ team.program }}<br>
+            School: {{ team.school }}
+        </p>
+
+    {% empty %}
+
+        <p>No teams have been added yet.</p>
+
+    {% endfor %}
+
+</div>
+
+</body>
+</html>

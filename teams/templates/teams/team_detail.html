@@ -1,0 +1,88 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{{ team.team_name }}</title>
+    <link rel="stylesheet" href="{% static 'teams/style.css' %}">
+</head>
+
+<body>
+
+<div class="container">
+
+    <h1>{{ team.team_number }} - {{ team.team_name }}</h1>
+
+    <p>
+        <strong>Program:</strong> {{ team.program }}
+    </p>
+
+    <p>
+        <strong>School:</strong> {{ team.school }}
+    </p>
+
+    <h2>Students</h2>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Grade Level</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            {% for student in team.students.all %}
+                <tr>
+                    <td>
+                        {{ student.first_name }}
+                        {{ student.last_name }}
+                    </td>
+
+                    <td>
+                        {{ student.grade_level }}
+                    </td>
+
+                    <td class="actions">
+                        <a class="button"
+                           href="{% url 'student_edit' team.id student.id %}">
+                            Edit
+                        </a>
+						|
+                        <a class="button"
+                           href="{% url 'student_delete' team.id student.id %}">
+                            Delete
+                        </a>
+                    </td>
+                </tr>
+            {% empty %}
+                <tr>
+                    <td colspan="3">No students found</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <h2>Add Student</h2>
+
+    <form method="post">
+        {% csrf_token %}
+
+        {{ form.as_p }}
+
+        <button type="submit">
+            Add Student
+        </button>
+    </form>
+
+    <div class="navigation">
+        <a href="{% url 'team_list' %}">
+            Back to Teams
+        </a>
+    </div>
+
+</div>
+
+</body>
+</html>
