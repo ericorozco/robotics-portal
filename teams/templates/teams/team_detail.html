@@ -22,7 +22,18 @@
     </p>
 
     <h2>Students</h2>
+    <p>
+        <a class="button"
+        href="{% url 'student_add' team.id %}">
+            Add Student
+        </a>
+    </p>
 
+    <div class="navigation">
+        <a href="{% url 'team_list' %}">
+            Back to Teams
+        </a>
+    </div>
     <table>
         <thead>
             <tr>
@@ -63,24 +74,6 @@
             {% endfor %}
         </tbody>
     </table>
-
-    <h2>Add Student</h2>
-
-    <form method="post">
-        {% csrf_token %}
-
-        {{ form.as_p }}
-
-        <button type="submit">
-            Add Student
-        </button>
-    </form>
-
-    <div class="navigation">
-        <a href="{% url 'team_list' %}">
-            Back to Teams
-        </a>
-    </div>
 
 </div>
 

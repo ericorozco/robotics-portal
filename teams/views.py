@@ -94,3 +94,30 @@ def student_delete(request, team_id, student_id):
             "student":student,
        }
     )
+def student_add(request, team_id):
+    team = get_object_or_404(Team, id=team_id)
+
+    if request.method == "POST":
+        form = StudentForm(request.POST)
+
+        if form.is_valid():
+            student = form.save(commit=False)
+            student.team = team
+            student.save()
+
+            return redirect(
+                "team_detail",
+                team_id=team.id
+            )
+
+    else:
+        form = StudentForm()
+
+    return render(
+        request,
+        "teams/student_add.html",
+        {
+            "team": team,
+            "form": form,
+        }
+    )
