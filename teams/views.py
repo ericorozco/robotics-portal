@@ -3,6 +3,7 @@ from django.shortcuts import redirect, get_object_or_404, render
 # Create your views here.
 from .models import Team
 from students.forms import StudentForm
+from teams.forms import TeamForm
 from students.models import Student
 
 def team_list(request):
@@ -11,6 +12,29 @@ def team_list(request):
 	return render(request, "teams/team_list.html", {
 		"teams":teams
 	})
+
+def team_add(request):
+    if request.method == "POST":
+        form = TeamForm(request.POST)
+
+        if form.is_valid():
+            team = form.save()
+
+            return redirect(
+                "team_detail",
+                team_id=team.id
+            )
+
+    else:
+        form = TeamForm()
+
+    return render(
+        request,
+        "teams/team_add.html",
+        {
+            "form": form,
+        }
+    )
 
 def team_detail(request, team_id):
     team = get_object_or_404(Team, id=team_id)

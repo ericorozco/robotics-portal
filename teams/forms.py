@@ -1,0 +1,7 @@
+from django import forms
+from .models import Team
+
+class TeamForm(forms.ModelForm):
+    class Meta:
+        model = Team
+        fields = ["team_number", "team_name", "program", "school"]

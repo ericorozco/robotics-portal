@@ -1,0 +1,35 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Add Team</title>
+    <link rel="stylesheet" href="{% static 'teams/style.css' %}">
+</head>
+
+<body>
+
+<div class="container">
+
+    <h1>Team Information</h1>
+
+
+    <form method="post">
+        {% csrf_token %}
+
+        {{ form.as_p }}
+
+        <button type="submit">
+            Add Team
+        </button>
+
+        <a class="button"
+           href="{% url 'team_list' %}">
+            Cancel
+        </a>
+    </form>
+
+</div>
+
+</body>
+</html>
